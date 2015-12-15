@@ -12,6 +12,7 @@
 		82A39DAF1C2014F300098937 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82A39DAD1C2014F300098937 /* Main.storyboard */; };
 		82A39DB11C2014F300098937 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82A39DB01C2014F300098937 /* Assets.xcassets */; };
 		82A39DB41C2014F300098937 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82A39DB21C2014F300098937 /* LaunchScreen.storyboard */; };
+		82A39DBC1C20152A00098937 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A39DBB1C20152A00098937 /* CanvasView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		82A39DB01C2014F300098937 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		82A39DB31C2014F300098937 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82A39DB51C2014F300098937 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82A39DBB1C20152A00098937 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				82A39DB01C2014F300098937 /* Assets.xcassets */,
 				82A39DB21C2014F300098937 /* LaunchScreen.storyboard */,
 				82A39DB51C2014F300098937 /* Info.plist */,
+				82A39DBB1C20152A00098937 /* CanvasView.swift */,
 			);
 			path = scheduleDemo;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			files = (
 				82A39DAC1C2014F300098937 /* ViewController.swift in Sources */,
 				82A39DAA1C2014F300098937 /* AppDelegate.swift in Sources */,
+				82A39DBC1C20152A00098937 /* CanvasView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +252,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = scheduleDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = t.testdown.scheduleDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -259,6 +264,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = scheduleDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = t.testdown.scheduleDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
