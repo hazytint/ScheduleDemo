@@ -9,19 +9,24 @@
 import UIKit
 
 let tableInset: UIEdgeInsets = UIEdgeInsetsMake(40, 40, 0, 0)
-let minCellHeight: CGFloat = 36
+let minCellHeight: CGFloat = 30
 let minCellWidth: CGFloat = 36
 let maxCellHeight: CGFloat = 50
-let maxCellWidth: CGFloat =  50
-let numberOfColum: Int = 7
-let numberOfRow: Int = 10
-let startHour: Int = 9
+let maxCellWidth: CGFloat =  60
+/// 间隔
+let cellSpace: CGFloat = 4
+/// 圆角
+let cellCornerRadius: CGFloat = 5
+let numberOfColumn: Int = 7
+let numberOfRow: Int = 14
+/// 开始时间几点
+let startHour: Int = 8
 let cellColor: UIColor = UIColor(white: 0.97, alpha: 1)
 let cellHighLightColor: UIColor = UIColor.blueColor()
 
 class CanvasView: UIView {
 
-    var enableArray: [[Bool]] = [[Bool]](count: numberOfColum, repeatedValue: [Bool](count: numberOfRow, repeatedValue: false))
+    var enableArray: [[Bool]] = [[Bool]](count: numberOfColumn, repeatedValue: [Bool](count: numberOfRow, repeatedValue: false))
     var fillMode: Bool = true
 
     var tapGesture: UITapGestureRecognizer!
@@ -44,7 +49,7 @@ class CanvasView: UIView {
 
     func cellSizeForRect(rect: CGRect) -> CGSize {
         let tableWidth = (rect.width - tableInset.left - tableInset.right)
-        var cellWidth = tableWidth / CGFloat(numberOfColum)
+        var cellWidth = tableWidth / CGFloat(numberOfColumn)
         cellWidth = max(cellWidth, minCellWidth)
         cellWidth = min(cellWidth, maxCellWidth)
         let tableHeight = (rect.height - tableInset.top - tableInset.bottom)
@@ -64,7 +69,7 @@ class CanvasView: UIView {
         let context = UIGraphicsGetCurrentContext()
         let cellSize = cellSizeForRect(rect)
 
-        for i in 0..<numberOfColum {
+        for i in 0..<numberOfColumn {
             for j in 0..<numberOfRow {
                 var bool = enableArray[i][j]
 
@@ -83,8 +88,8 @@ class CanvasView: UIView {
                     CGContextSetFillColorWithColor(context, cellColor.CGColor)
                 }
 
-                let r = CGRectMake(tableInset.top + (cellSize.width)*CGFloat(i) + 2, tableInset.top + (cellSize.height)*CGFloat(j) + 2, cellSize.width - 4, cellSize.height - 4)
-                let b = UIBezierPath(roundedRect: r, cornerRadius: 4)
+                let r = CGRectMake(tableInset.top + (cellSize.width)*CGFloat(i) + cellSpace / 2, tableInset.top + (cellSize.height)*CGFloat(j) + cellSpace / 2, cellSize.width - cellSpace, cellSize.height - cellSpace)
+                let b = UIBezierPath(roundedRect: r, cornerRadius: cellCornerRadius)
                 b.fill()
             }
         }
@@ -104,7 +109,7 @@ class CanvasView: UIView {
         let cellSize = cellSizeForRect(bounds)
         let i = Int((point.x - tableInset.left) / cellSize.width)
         let j = Int((point.y - tableInset.top) / cellSize.height)
-        if !(0 <= i && i < 7 && 0 <= j && j < 12) {
+        if !(0 <= i && i < numberOfColumn && 0 <= j && j < numberOfRow) {
             return
         }
         switch gesture.state {
@@ -139,7 +144,7 @@ class CanvasView: UIView {
 
     private func scheduleJSON() -> String {
         var json = "{"
-        for i in 0..<numberOfColum {
+        for i in 0..<numberOfColumn {
             json += String(format: "\"%d\":[", i)
             var startY: Int?
             for j in 0..<numberOfRow {
@@ -147,12 +152,18 @@ class CanvasView: UIView {
                 if startY == nil && b == true{
                     startY = j
                 } else if startY != nil && (b == false || j == numberOfRow - 1) {
-                    json += String(format: "[%d:00,", startY! + startHour)
-                    json += String(format: "%d:00]", j + startHour)
+                    json += String(format: "[\"%d:00\",", startY! + startHour)
+                    json += String(format: "\"%d:00\"],", j + startHour)
                     startY = nil
                 }
             }
-            json += "],"
+            if json.hasSuffix(",") {
+                json.removeAtIndex(json.endIndex.advancedBy(-1))
+            }
+            json += "]"
+            if i < numberOfColumn - 1 {
+                json += ","
+            }
         }
         json += "}"
         return json
