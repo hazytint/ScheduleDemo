@@ -136,13 +136,13 @@ class CanvasView: UIView {
             }
             startIndex = nil
             toIndex = nil
-            print(scheduleJSON())
+            print(scheduleJSONString())
         default:
             break
         }
     }
 
-    private func scheduleJSON() -> String {
+    private func scheduleJSONString() -> String {
         var json = "{"
         for i in 0..<numberOfColumn {
             json += String(format: "\"%d\":[", i)
